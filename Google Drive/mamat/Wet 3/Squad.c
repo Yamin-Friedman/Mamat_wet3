@@ -31,28 +31,73 @@ PSquad Squad_Create(char *id){
 	}
 
 	soldier_list = List_Create(Soldier_Clone_Func,Soldier_Destroy_Func,Soldier_Compare_Keys_Func,Soldier_Print_Func,Soldier_Get_Key);
+    if(soldier_list == NULL){
+        printf(MALLOC_ERR_MSG);
+        free(new_squad);
+        return NULL;
+    }
 	APC_list = List_Create(APC_Clone_Func,APC_Destroy_Func,APC_Compare_Keys_Func,APC_Print_Func,APC_Get_Key);
+    if(APC_list == NULL){
+        printf(MALLOC_ERR_MSG);
+        free(new_squad);
+        List_Delete(APC_list);
+        return NULL;
+    }
 
+    strcpy(new_squad->ID,id);
+    new_squad->APCs = APC_list;
+    new_squad->Soldiers = soldier_list;
+    new_squad->Count = 0;
 
+    return new_squad;
 }
 
-PSquad Squad_Duplicate(PSquad Squad) {
-	if (Squad == NULL) {
+
+void Squad_Delete(PSquad psquad){
+
+	if(psquad == NULL){
+		printf(ARG_ERR_MSG);
+		return;
+	}
+
+	List_Delete(psquad->Soldiers);
+	List_Delete(psquad->APCs);
+	free(psquad);
+}
+
+void Squad_Print(PSquad psquad){
+
+	if(psquad == NULL){
+		printf(ARG_ERR_MSG);
+		return;
+	}
+
+	printf("Squad: %s , Total troops: %d\n",psquad->ID,psquad->Count);
+	printf("APCs:\n");
+	List_Print(psquad->APCs);
+	printf("Soldiers:\n");
+	List_Print(psquad->Soldiers);
+}
+
+PSquad Squad_Duplicate(PSquad old_squad){
+	PSquad new_squad = NULL;
+
+	if(old_squad == NULL){
 		printf(ARG_ERR_MSG);
 		return NULL;
 	}
-	PList Soldiers = Squad_Get_Soldiers(Squad);
-	PList APCs = Squad_Get_APCs(Squad);
-	PSquad New_Squad = Squad_Create(Squad->ID, List_Get_Clone_Func(Soldiers), List_Get_Des_Func(Soldiers), List_Get_Cmp_Func(Soldiers), List_Get_Print_Func(Soldiers),
-												List_Get_Clone_Func(APCs), List_Get_Des_Func(APCs), List_Get_Cmp_Func(APCs), List_Get_Print_Func(APCs));
-	if (New_Squad == NULL) {
+
+	new_squad = Squad_Create(old_squad->ID);
+	if(new_squad == NULL){
 		return NULL;
 	}
-	List_Duplicate(Squad->APCs, New_Squad->APCs);
-	List_Duplicate(Squad->Soldiers, New_Squad->Soldiers);
-	New_Squad->Count = Squad->Count;
-	return New_Squad;
+
+	List_Duplicate(old_squad->Soldiers,new_squad->Soldiers);
+	List_Duplicate(old_squad->APCs,new_squad->APCs);
+	new_squad->Count = old_squad->Count;
+	return new_squad;
 }
+
 
 
 /**User Functions**/
@@ -64,6 +109,8 @@ void Squad_Print_Func(PElem Data) {
 	Squad_Print((PSquad)Data);
 }
 
+
+/**Soldier list functions**/
 PElem Soldier_Clone_Func(PElem pelem){
 	PSoldier new_soldier = NULL;
 
