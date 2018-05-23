@@ -1,0 +1,424 @@
+Battlefield Created!
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+WarZone: W111 , Alert State: 0
+
+WarZone: W444 , Alert State: 0
+
+WarZone: W333 , Alert State: 0
+
+**********All Commands Executed**********
+
+Error: Squad Already Exists
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Error: No Such War Zone
+Error: No Such Squad
+Error: No Such Squad
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 0
+APCs:
+A333 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 0
+APCs:
+A111 , Occupancy: 0/6
+A123 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Error: No Such War Zone
+Error: No Such Squad
+Error: No Such APC
+Error: No Such Squad
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 0
+APCs:
+A333 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 0
+APCs:
+A111 , Occupancy: 0/6
+A121 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 1
+APCs:
+Soldiers:
+S111 , INT
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 0
+APCs:
+A333 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 0
+APCs:
+A111 , Occupancy: 0/6
+A121 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 0
+APCs:
+A333 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 2
+APCs:
+A111 , Occupancy: 1/6
+Seat 1: S222 , ENG
+A121 , Occupancy: 0/6
+Soldiers:
+S333 , MED
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 0
+APCs:
+A333 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 1
+APCs:
+A121 , Occupancy: 0/6
+Soldiers:
+S333 , MED
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 0
+APCs:
+A333 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 1
+APCs:
+A121 , Occupancy: 0/6
+Soldiers:
+S333 , MED
+
+Squad: Sq666 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Error: Soldier Already Exists
+Error: Soldier Already Exists
+Error: Soldier Already Exists
+Error: Soldier Already Exists
+Error: APC Already Exists
+Error: APC Already Exists
+Error: APC Already Exists
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 0
+APCs:
+A333 , Occupancy: 0/6
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 1
+APCs:
+A121 , Occupancy: 0/6
+Soldiers:
+S333 , MED
+
+Squad: Sq666 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 2
+APCs:
+A333 , Occupancy: 0/6
+Soldiers:
+S123 , INT
+S456 , ENG
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 1
+APCs:
+A121 , Occupancy: 0/6
+Soldiers:
+S333 , MED
+
+Squad: Sq666 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Error: No Such Soldier
+Error: No Such Soldier
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 3
+APCs:
+A333 , Occupancy: 0/6
+Soldiers:
+S123 , INT
+S456 , ENG
+S777 , MED
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 1
+APCs:
+A121 , Occupancy: 0/6
+Soldiers:
+S333 , MED
+
+Squad: Sq666 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+No Commands to Execute
+**********All Commands Executed**********
+
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 3
+APCs:
+A333 , Occupancy: 3/6
+Seat 1: S123 , INT
+Seat 2: S456 , ENG
+Seat 3: S777 , MED
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 1
+APCs:
+A121 , Occupancy: 0/6
+Soldiers:
+S333 , MED
+
+Squad: Sq666 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+
+Error: No Such Squad
+Battlefield:
+WarZone: W222 , Alert State: 0
+
+Squad: Sq222 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W111 , Alert State: 0
+
+Squad: Sq111 , Total troops: 1
+APCs:
+A121 , Occupancy: 0/6
+Soldiers:
+S333 , MED
+
+Squad: Sq666 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W444 , Alert State: 0
+
+Squad: Sq444 , Total troops: 0
+APCs:
+Soldiers:
+
+WarZone: W333 , Alert State: 0
+
+Squad: Sq333 , Total troops: 0
+APCs:
+Soldiers:
+
+**********All Commands Executed**********
+

@@ -1,0 +1,61 @@
+4 Add_W W333
+3 Add_W W222
+2 Add_W W111
+1 Create_B
+5 Add_Sq W111 Sq111
+7 Add_Sq W333 Sq333
+6 Add_Sq W222 Sq222
+8 Add_Sq W111 Sqaaa
+9 Add_Sq W222 Sqbbb
+10 Add_Sq W333 Sqccc
+11 Print
+Exe
+1 Add_APC W111 Sq111 A111
+2 Add_APC W222 Sq222 A222
+3 Add_APC W333 Sq333 A333
+4 Print
+Exe
+1 Add_Sold W111 Sqaaa S123 MED
+2 Add_Sold W111 Sqaaa S321 ENG
+3 Add_Sold W222 Sqbbb S234 INT
+4 Add_Sold W222 Sqbbb S432 ENG
+5 Add_Sold W333 Sqccc S567 INT
+6 Add_Sold W333 Sqccc S765 ENG
+7 Print
+Exe
+1 Add_Sold W111 Sq111 S555 MED
+2 Add_Sold W111 Sq111 S666 ENG
+3 Print
+Exe
+1 R_W W222
+2 Print
+Exe
+2 R_W W111
+1 R_W W333
+3 R_W W111
+4 R_W W333
+5 Print
+Exe
+1 R_W W333
+2 Print
+Exe
+1 R_W W111
+2 Print
+Exe
+1 Del_W W333
+2 Print
+Exe
+1 Del_W W111
+2 Print
+Exe
+1 R_W W111
+2 R_W W111
+3 R_W W222
+5 Print
+4 R_W W222
+Exe
+1 Del_W W222
+2 Del_W W444
+3 Print
+Exe
+Exit

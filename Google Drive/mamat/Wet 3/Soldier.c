@@ -83,7 +83,7 @@ char* Soldier_Get_Id(PSoldier psoldier){
         return NULL;
     }
 
-    return psoldier->ID;
+    return psoldier->ID;//not sure if this is the right way to do this
 }
 
 

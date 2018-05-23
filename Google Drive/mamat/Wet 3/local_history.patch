@@ -1,0 +1,13 @@
+Index: Soldier.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Soldier.c	(date 1526933764000)
++++ Soldier.c	(date 1526933764000)
+@@ -1,5 +1,4 @@
+ #include "Soldier.h"
+-#pragma warning(disable: 4996)
+ 
+ static const char * const POSITIONS[NUM_POSITIONS] = {"DRIVER", "MED", "ENG", "INT", "GUNNER"};
+ 
