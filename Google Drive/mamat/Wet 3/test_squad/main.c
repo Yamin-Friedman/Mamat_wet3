@@ -65,6 +65,7 @@ int main() {
     Squad_Print(squad1);
     Squad_Print(squad2);
     Squad_Delete(squad1);
+    Squad_Print(squad2);
     Squad_Delete(squad2);
     return 0;
 }

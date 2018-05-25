@@ -241,18 +241,6 @@ char* Squad_Get_ID(PSquad psquad,char *id){
 
 
 
-/**User Functions**/
-
-//Why define Squad functions here and not in WarZone?
-void Squad_Print_Func(PElem Data) {
-	if (Data == NULL) {
-		printf(ARG_ERR_MSG);
-		return;
-	}
-	Squad_Print((PSquad)Data);
-}
-
-
 /**Soldier list functions**/
 PElem Soldier_Clone_Func(PElem pelem){
 	PSoldier new_soldier = NULL;
