@@ -77,13 +77,16 @@ PSoldier Soldier_Duplicate(PSoldier Soldier) {
 }
 
 char* Soldier_Get_Id(PSoldier psoldier){
+    char id[MAX_ID_LENGTH];
 
     if(psoldier == NULL){
         printf(ARG_ERR_MSG);
         return NULL;
     }
 
-    return psoldier->ID;//not sure if this is the right way to do this
+    strcpy(id,psoldier->ID);
+
+    return id;
 }
 
 

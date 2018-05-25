@@ -142,7 +142,84 @@ Result Squad_Insert_Sold_APC(PSquad psquad, char *sold_id, char *APC_id) {
 		return FAILURE;
 	}
 	res = APC_Insert_Soldier(APC, soldier);
+    if(res){
+        List_Remove_Elem(psquad->Soldiers,sold_id); //Soldiers are either in the soldier list or in APCs
+    }
 	return res;
+}
+
+
+Result Squad_APC_Pop(PSquad psquad, char *APC_id){
+    PSoldier soldier = NULL;
+    PAPC APC = NULL;
+    Result res;
+
+    if(psquad == NULL || APC_id == NULL){
+        printf(ARG_ERR_MSG);
+        return FAILURE;
+    }
+
+    APC = List_Get_Elem(psquad->APCs,APC_id);
+    soldier = APC_Pop(APC);
+    if(soldier == NULL){
+        // Maybe print message
+        return FAILURE;
+    }
+    res = List_Add_Elem(psquad->Soldiers,soldier);
+
+    return res;
+}
+
+Result Squad_Delete_Soldier(PSquad psquad, char *soldier_id){
+    Result res;
+
+    if(psquad == NULL || soldier_id == NULL){
+        printf(ARG_ERR_MSG);
+        return FAILURE;
+    }
+
+    res = List_Remove_Elem(psquad->Soldiers,soldier_id);
+
+    return res;
+}
+
+
+// So far I wrote this on the assumption that you can't delete an APC that has soldiers in it
+Result Squad_Delete_APC(PSquad psquad, char *APC_id){
+	Result res;
+	PAPC APC = NULL;
+
+	if(psquad == NULL || APC_id == NULL){
+		printf(ARG_ERR_MSG);
+		return FAILURE;
+	}
+
+	APC = List_Get_Elem(psquad->APCs,APC_id);
+	if(APC == NULL){
+        return FAILURE;
+	}
+
+	if(APC_Get_Num_Soldiers(APC)){
+        // maybe print message
+        return FAILURE;
+	}
+
+    res = List_Remove_Elem(psquad->APCs,APC_id);
+
+    return res;
+}
+
+char* Squad_Get_ID(PSquad psquad){
+	char id[MAX_ID_LENGTH];
+
+	if(psquad == NULL){
+		printf(ARG_ERR_MSG);
+		return FAILURE;
+	}
+
+	strcpy(id,psquad->ID);
+
+	return id;
 }
 
 

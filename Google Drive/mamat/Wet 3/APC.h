@@ -16,5 +16,6 @@ PAPC APC_Duplicate(PAPC);
 Result APC_Insert_Soldier(PAPC, PSoldier);
 PSoldier APC_Pop(PAPC);
 char* APC_Get_Id(PAPC);
+int APC_Get_Num_Soldiers(PAPC);
 
 #endif
