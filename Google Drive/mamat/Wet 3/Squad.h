@@ -10,12 +10,29 @@
 
 typedef struct _Squad *PSquad;
 
+/*Squad Function Declarations*/
+PSquad Squad_Create(char*);
+void Squad_Delete(PSquad);
+void Squad_Print(PSquad);
+PSquad Squad_Duplicate(PSquad);
+Result Squad_Add_Soldier(PSquad, char*, char*);
+Result Squad_Add_APC(PSquad, char*);
+
+/*List Functions*/
+
+void Squad_Print_Func(PElem Data);
+
 PElem Soldier_Clone_Func(PElem);
 void Soldier_Destroy_Func(PElem);
 bool Soldier_Compare_Keys_Func(PKey , PKey);
 void Soldier_Print_Func(PElem);
 PKey Soldier_Get_Key(PElem);
 
+PElem APC_Clone_Func(PElem);
+void APC_Destroy_Func(PElem);
+bool APC_Compare_Keys_Func(PKey, PKey);
+void APC_Print_Func(PElem);
+PKey APC_Get_Key(PElem);
 
 
 #endif

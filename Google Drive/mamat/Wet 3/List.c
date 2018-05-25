@@ -1,15 +1,11 @@
 #include "List.h"
 
-
 typedef struct Node_ 
 {
     PNode next_node;
     PList plist;
     PElem pelem;
 } NODE;
-
-
-
 
 typedef struct List_ 
 {
@@ -60,6 +56,7 @@ void List_Delete(PList plist) {
 	{
 		curr_node = plist->first_node;
 		plist->first_node = curr_node->next_node;
+		plist->destroy_func(curr_node->pelem);
 		free(curr_node);
 	}
 	free(plist);
@@ -175,6 +172,7 @@ PElem List_Get_Next(PList plist){
 
 void List_Duplicate(PList psrc_list, PList pdst_list) {
 	PNode s_curr_node;
+	PElem tmp_pelem;
 	Result r;
 	if (psrc_list == NULL || pdst_list == NULL || pdst_list->first_node != NULL) {
 		printf(ARG_ERR_MSG);
@@ -190,8 +188,8 @@ void List_Duplicate(PList psrc_list, PList pdst_list) {
 	s_curr_node = psrc_list->first_node;
 	while (s_curr_node)
 	{
-		r = List_Add_Elem(pdst_list, s_curr_node->pelem);
-		// Don't know if this part is necessary
+		tmp_pelem = pdst_list->clone_func(s_curr_node->pelem);
+		r = List_Add_Elem(pdst_list, tmp_pelem);
 		if (r == FAILURE)
 		{
 			List_Delete(pdst_list);

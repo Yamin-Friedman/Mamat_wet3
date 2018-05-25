@@ -19,7 +19,7 @@ PSquad Squad_Create(char *id){
 	PList soldier_list = NULL;
 	PList APC_list = NULL;
 
-	if(Check_Valid_ID(id)){
+	if(Check_Valid_ID(id) == false){// I added "== false" because before it returned an error for a correct id.
 		printf(ARG_ERR_MSG);
 		return NULL;
 	}
@@ -34,6 +34,7 @@ PSquad Squad_Create(char *id){
     if(soldier_list == NULL){
         printf(MALLOC_ERR_MSG);
         free(new_squad);
+		List_Delete(soldier_list);//Don't know if necessary
         return NULL;
     }
 	APC_list = List_Create(APC_Clone_Func,APC_Destroy_Func,APC_Compare_Keys_Func,APC_Print_Func,APC_Get_Key);
@@ -51,7 +52,6 @@ PSquad Squad_Create(char *id){
 
     return new_squad;
 }
-
 
 void Squad_Delete(PSquad psquad){
 
@@ -98,9 +98,58 @@ PSquad Squad_Duplicate(PSquad old_squad){
 	return new_squad;
 }
 
+Result Squad_Add_Soldier(PSquad psquad, char *id, char *pos) {
+	PSoldier new_soldier;
+	Result res;
+	if (psquad == NULL) {
+		printf(ARG_ERR_MSG);
+		return FAILURE;
+	}
+	new_soldier = Soldier_Create(id, pos);
+	if (new_soldier == NULL) {
+		return FAILURE;
+	}
+	res = List_Add_Elem(psquad->Soldiers, new_soldier);
+	return res;
+}
+
+Result Squad_Add_APC(PSquad psquad, char *id) {
+	PAPC new_APC;
+	Result res;
+	if (psquad == NULL) {
+		printf(ARG_ERR_MSG);
+		return FAILURE;
+	}
+	new_APC = APC_Create(id);
+	if (new_APC == NULL) {
+		return FAILURE;
+	}
+	res = List_Add_Elem(psquad->APCs, new_APC);
+	return res;
+}
+
+Result Squad_Insert_Sold_APC(PSquad psquad, char *sold_id, char *APC_id) {
+	PSoldier soldier;
+	PAPC APC;
+	Result res;
+	if (psquad == NULL) {
+		printf(ARG_ERR_MSG);
+		return FAILURE;
+	}
+	soldier = List_Get_Elem(psquad->Soldiers, sold_id);
+	APC = List_Get_Elem(psquad->APCs, APC_id);
+	if ((soldier == NULL) || (APC == NULL)) {
+		return FAILURE;
+	}
+	res = APC_Insert_Soldier(APC, soldier);
+	return res;
+}
+
 
 
 /**User Functions**/
+
+//Why define Squad functions here and not in WarZone?
 void Squad_Print_Func(PElem Data) {
 	if (Data == NULL) {
 		printf(ARG_ERR_MSG);
@@ -136,7 +185,7 @@ bool Soldier_Compare_Keys_Func(PKey key1, PKey key2){
 
     if(key1 == NULL || key2 == NULL){
         printf(ARG_ERR_MSG);
-        return NULL;
+        return false; // hope this is right
     }
 
     if(strcmp((char*)key1,(char*)key2) == 0){
@@ -164,4 +213,50 @@ PKey Soldier_Get_Key(PElem pelem){
     return Soldier_Get_Id((PSoldier)pelem);
 }
 
+/**APC list functions**/
+
+PElem APC_Clone_Func(PElem pelem) {
+	PAPC new_APC;
+	if (pelem == NULL) {
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+
+	new_APC = APC_Duplicate((PAPC)pelem);
+	return new_APC;
+}
+
+void APC_Destroy_Func(PElem pelem) {
+	if (pelem == NULL) {
+		printf(ARG_ERR_MSG);
+	}
+	APC_Delete((PAPC)pelem);
+}
+
+bool APC_Compare_Keys_Func(PKey pkey1, PKey pkey2) {
+	if (pkey1 == NULL || pkey2 == NULL) {
+		printf(ARG_ERR_MSG);
+		return false;
+	}
+
+	if (strcmp((char*)pkey1, (char*)pkey2) == 0) {
+		return true;
+	}
+	return false;
+}
+
+void APC_Print_Func(PElem pelem) {
+	if (pelem == NULL) {
+		printf(ARG_ERR_MSG);
+	}
+	APC_Print((PAPC)pelem);
+}
+
+PKey APC_Get_Key(PElem pelem) {
+	if (pelem == NULL) {
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+	return APC_Get_Id((PAPC)pelem);
+}
 

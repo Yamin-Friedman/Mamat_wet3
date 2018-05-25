@@ -70,7 +70,6 @@ PAPC APC_Duplicate(PAPC APC) {
 		printf(MALLOC_ERR_MSG);
 		return NULL;
 	}
-	//new_APC->Soldiers = APC->Soldiers; //?
 	int i = 0;
 	while (i<=APC->Stack_Top-1)
 	{
