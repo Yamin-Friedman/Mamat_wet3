@@ -12,7 +12,7 @@ PSoldier Soldier_Create(char*, char*);
 void Soldier_Delete(PSoldier);
 void Soldier_Print(PSoldier);
 PSoldier Soldier_Duplicate(PSoldier);
-char* Soldier_Get_Id(PSoldier);
+char* Soldier_Get_Id(PSoldier, char*);
 
 
 #endif

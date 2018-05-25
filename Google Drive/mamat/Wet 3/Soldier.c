@@ -76,8 +76,7 @@ PSoldier Soldier_Duplicate(PSoldier Soldier) {
 	return new_soldier;
 }
 
-char* Soldier_Get_Id(PSoldier psoldier){
-    char id[MAX_ID_LENGTH];
+char* Soldier_Get_Id(PSoldier psoldier, char *id){
 
     if(psoldier == NULL){
         printf(ARG_ERR_MSG);

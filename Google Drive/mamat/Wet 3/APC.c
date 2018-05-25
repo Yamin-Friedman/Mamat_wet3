@@ -91,7 +91,7 @@ Result APC_Insert_Soldier(PAPC APC, PSoldier Soldier){
 		printf(FULL_APC_MSG);
 		return FAILURE;
 	}
-	APC->Soldiers[APC->Stack_Top] = Soldier;//I think we should use soldier duplicate here
+	APC->Soldiers[APC->Stack_Top] = Soldier;
 	APC->Stack_Top++;
 	return SUCCESS;
 }
@@ -111,8 +111,7 @@ PSoldier APC_Pop(PAPC APC) {
 	return Soldier;
 }
 
-char* APC_Get_Id(PAPC pAPC){
-    char id[MAX_ID_LENGTH];
+char* APC_Get_Id(PAPC pAPC, char* id){
 
     if(pAPC == NULL){
         printf(ARG_ERR_MSG);

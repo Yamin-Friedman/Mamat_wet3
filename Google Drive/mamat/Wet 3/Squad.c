@@ -105,11 +105,20 @@ Result Squad_Add_Soldier(PSquad psquad, char *id, char *pos) {
 		printf(ARG_ERR_MSG);
 		return FAILURE;
 	}
+
+    if(List_Get_Elem(psquad->Soldiers,id)){
+        return FAILURE;
+    }
+
 	new_soldier = Soldier_Create(id, pos);
 	if (new_soldier == NULL) {
 		return FAILURE;
 	}
+
 	res = List_Add_Elem(psquad->Soldiers, new_soldier);
+	if(res){
+		psquad->Count++;
+	}
 	return res;
 }
 
@@ -120,6 +129,11 @@ Result Squad_Add_APC(PSquad psquad, char *id) {
 		printf(ARG_ERR_MSG);
 		return FAILURE;
 	}
+
+    if(List_Get_Elem(psquad->APCs,id)){
+        return FAILURE;
+    }
+
 	new_APC = APC_Create(id);
 	if (new_APC == NULL) {
 		return FAILURE;
@@ -136,7 +150,8 @@ Result Squad_Insert_Sold_APC(PSquad psquad, char *sold_id, char *APC_id) {
 		printf(ARG_ERR_MSG);
 		return FAILURE;
 	}
-	soldier = List_Get_Elem(psquad->Soldiers, sold_id);
+
+	soldier = Soldier_Duplicate(List_Get_Elem(psquad->Soldiers, sold_id));
 	APC = List_Get_Elem(psquad->APCs, APC_id);
 	if ((soldier == NULL) || (APC == NULL)) {
 		return FAILURE;
@@ -179,6 +194,9 @@ Result Squad_Delete_Soldier(PSquad psquad, char *soldier_id){
     }
 
     res = List_Remove_Elem(psquad->Soldiers,soldier_id);
+	if(res){
+		psquad->Count--;
+	}
 
     return res;
 }
@@ -209,8 +227,7 @@ Result Squad_Delete_APC(PSquad psquad, char *APC_id){
     return res;
 }
 
-char* Squad_Get_ID(PSquad psquad){
-	char id[MAX_ID_LENGTH];
+char* Squad_Get_ID(PSquad psquad,char *id){
 
 	if(psquad == NULL){
 		printf(ARG_ERR_MSG);
@@ -281,13 +298,14 @@ void Soldier_Print_Func(PElem pelem){
 }
 
 PKey Soldier_Get_Key(PElem pelem){
+    char id[MAX_ID_LENGTH];
 
     if(pelem == NULL){
         printf(ARG_ERR_MSG);
         return NULL;
     }
 
-    return Soldier_Get_Id((PSoldier)pelem);
+    return Soldier_Get_Id((PSoldier)pelem,id);
 }
 
 /**APC list functions**/
@@ -330,10 +348,12 @@ void APC_Print_Func(PElem pelem) {
 }
 
 PKey APC_Get_Key(PElem pelem) {
+    char id[MAX_ID_LENGTH];
+
 	if (pelem == NULL) {
 		printf(ARG_ERR_MSG);
 		return NULL;
 	}
-	return APC_Get_Id((PAPC)pelem);
+	return APC_Get_Id((PAPC)pelem,id);
 }
 

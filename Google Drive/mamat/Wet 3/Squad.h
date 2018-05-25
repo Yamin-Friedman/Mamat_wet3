@@ -21,7 +21,7 @@ Result Squad_Insert_Sold_APC(PSquad, char*, char*);
 Result Squad_APC_Pop(PSquad, char*);
 Result Squad_Delete_Soldier(PSquad, char*);
 Result Squad_Delete_APC(PSquad, char*);
-char* Squad_Get_ID(PSquad);
+char* Squad_Get_ID(PSquad,char*);
 
 /*List Functions*/
 
