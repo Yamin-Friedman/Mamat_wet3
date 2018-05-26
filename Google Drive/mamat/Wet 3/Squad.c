@@ -202,7 +202,6 @@ Result Squad_Delete_Soldier(PSquad psquad, char *soldier_id){
 }
 
 
-// So far I wrote this on the assumption that you can't delete an APC that has soldiers in it
 Result Squad_Delete_APC(PSquad psquad, char *APC_id){
 	Result res;
 	PAPC APC = NULL;
@@ -210,16 +209,6 @@ Result Squad_Delete_APC(PSquad psquad, char *APC_id){
 	if(psquad == NULL || APC_id == NULL){
 		printf(ARG_ERR_MSG);
 		return FAILURE;
-	}
-
-	APC = List_Get_Elem(psquad->APCs,APC_id);
-	if(APC == NULL){
-        return FAILURE;
-	}
-
-	if(APC_Get_Num_Soldiers(APC)){
-        // maybe print message
-        return FAILURE;
 	}
 
     res = List_Remove_Elem(psquad->APCs,APC_id);
@@ -238,6 +227,19 @@ char* Squad_Get_ID(PSquad psquad,char *id){
 
 	return id;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
