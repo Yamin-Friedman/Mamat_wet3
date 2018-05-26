@@ -15,6 +15,7 @@
 #define NUM_POSITIONS 5
 #define SOLDIER_ID_LEN 4
 #define SQUAD_ID_LEN 5
+#define WARZONE_ID_LEN 4
 
 #define MALLOC_ERR_MSG "Error: Cant perform Malloc\n"
 #define ARG_ERR_MSG "Error: Function's Args Error\n"

@@ -16,7 +16,11 @@ typedef struct _WarZone *PWarZone;
 
 /*List Functions*/
 
-
+PElem Squad_Clone_Func(PElem);
+void Squad_Destroy_Func(PElem);
+bool Squad_Compare_Keys_Func(PKey , PKey);
+void Squad_Print_Func(PElem);
+PKey Squad_Get_Key_Func(PElem);
 
 
 #endif

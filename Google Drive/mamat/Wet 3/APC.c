@@ -1,4 +1,5 @@
 #include "APC.h"
+#pragma warning(disable: 4996)
 
 typedef struct _APC {
 	char ID[MAX_ID_LENGTH];

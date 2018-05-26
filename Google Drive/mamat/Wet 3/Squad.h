@@ -25,7 +25,7 @@ char* Squad_Get_ID(PSquad,char*);
 
 /*List Functions*/
 
-void Squad_Print_Func(PElem Data);
+
 
 PElem Soldier_Clone_Func(PElem);
 void Soldier_Destroy_Func(PElem);

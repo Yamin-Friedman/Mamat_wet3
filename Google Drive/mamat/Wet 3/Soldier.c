@@ -1,4 +1,5 @@
 #include "Soldier.h"
+#pragma warning(disable: 4996)
 
 static const char * const POSITIONS[NUM_POSITIONS] = {"DRIVER", "MED", "ENG", "INT", "GUNNER"};
 

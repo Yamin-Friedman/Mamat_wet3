@@ -1,4 +1,5 @@
 #include "List.h"
+#pragma warning(disable: 4996)
 
 typedef struct Node_ 
 {
@@ -111,6 +112,8 @@ Result List_Add_Elem(PList plist, PElem pelem) {
 			if (curr_node->next_node == NULL)
 			{
 				curr_node->next_node = new_node;
+				if (plist->curr_node == NULL)// case where the curr_node of the list has reached the end
+					plist->curr_node = new_node;
 				return SUCCESS;
 			}
 			curr_node = curr_node->next_node;
@@ -130,6 +133,9 @@ Result List_Remove_Elem(PList plist, PKey pkey){
     curr_node = plist->first_node;
     while (curr_node){
         if(plist->compare_keys_func(plist->get_key(curr_node->pelem),pkey)) {
+			if (plist->curr_node == curr_node){
+				plist->curr_node = curr_node->next_node; //fixed :)
+			}
             if (prev_node == NULL) {
                 plist->first_node = curr_node->next_node;
             } else {
@@ -137,7 +143,6 @@ Result List_Remove_Elem(PList plist, PKey pkey){
             }
             plist->destroy_func(curr_node->pelem);
             free(curr_node);
-			plist->curr_node = plist->first_node; // It will make sure we have the most up to date curr_node
             return SUCCESS;
         }
         prev_node = curr_node;

@@ -1,4 +1,5 @@
 #include "Squad.h"
+#pragma warning(disable: 4996)
 
 typedef struct _Squad {
 	PList Soldiers;
@@ -94,6 +95,10 @@ PSquad Squad_Duplicate(PSquad old_squad){
 
 	List_Duplicate(old_squad->Soldiers,new_squad->Soldiers);
 	List_Duplicate(old_squad->APCs,new_squad->APCs);
+	if(new_squad->APCs == NULL || new_squad->Soldiers == NULL){
+		Squad_Delete(new_squad);
+		return NULL;
+	}
 	new_squad->Count = old_squad->Count;
 	return new_squad;
 }
@@ -227,21 +232,6 @@ char* Squad_Get_ID(PSquad psquad,char *id){
 
 	return id;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**Soldier list functions**/
 PElem Soldier_Clone_Func(PElem pelem){
