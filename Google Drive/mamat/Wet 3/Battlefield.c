@@ -8,6 +8,54 @@ typedef struct _Battlefield {
 	PList Warzones;
 } Battlefield;
 
+static PSquad get_squad(char *W_id, char *S_id, PBattlefield battlefield) {
+	PWarZone warzone = NULL;
+	PList squads = NULL;
+	PSquad squad = NULL;
+	if ((W_id == NULL) || (S_id == NULL) || (battlefield == NULL)) {
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+	warzone = List_Get_Elem(battlefield->Warzones, W_id);
+	if (warzone == NULL) {
+		printf("Error: No Such War Zone");
+		return NULL;
+	}
+	squads = WarZone_Get_List(warzone);
+	if (squads == NULL) {
+		printf("Error: No Such Squad");
+		return NULL;
+	}
+	squad = List_Get_Elem(squads, S_id);
+	if (squad == NULL) {
+		printf("Error: No Such Squad");
+		return NULL;
+	}
+	return squad;
+}
+
+static Result move_squad_list(PWarZone S_warzone, PWarZone D_warzone, PBattlefield battlefield) {
+	if ((S_warzone == NULL) || (D_warzone == NULL) || (battlefield == NULL)) {
+		return FAILURE;
+	}
+
+	PSquad curr_squad = NULL;
+	PList squad_list = NULL;
+	Result res;
+
+	squad_list = WarZone_Get_List(S_warzone);
+	curr_squad = List_Get_First(squad_list);
+	while (curr_squad)
+	{
+		res = Battlefield_Move_Squad(S_warzone, D_warzone, curr_squad, battlefield);
+		if (res == FAILURE) {
+			return FAILURE;
+		}
+		curr_squad = List_Get_Next(squad_list);
+	}
+	return SUCCESS;
+}
+
 PBattlefield Battlefield_Create() {
 	PBattlefield new_battle = NULL;
 
@@ -44,6 +92,17 @@ void Battlefield_Delete(PBattlefield battlefield){
 	free(battlefield);
 
 	return;
+}
+
+void Battlefield_Print(PBattlefield battlefield) {
+
+	if (battlefield == NULL) {
+		printf(ARG_ERR_MSG);
+		return;
+	}
+
+	printf("Battlefield\n");
+	List_Print(battlefield->Warzones);
 }
 
 Result Battlefield_Add_WarZone(PBattlefield battlefield, char *id){
@@ -279,6 +338,60 @@ Result Battlefield_Delete_Soldier(PBattlefield battlefield, char *warzone_id, ch
 	}
 
 	return SUCCESS;
+}
+
+Result Battlefield_APC_Insert_Soldier(char *W_id, char *S_id, char *A_id, char *Sold_id, PBattlefield battlefield) {
+	PSquad squad = NULL;
+	Result res;
+
+	if ((W_id == NULL) || (S_id == NULL) || (A_id == NULL) || (Sold_id == NULL) || battlefield == NULL) {
+		printf(ARG_ERR_MSG);
+		return FAILURE;
+	}
+	squad = get_squad(W_id, S_id, battlefield);
+	res = Squad_Insert_Sold_APC(squad, Sold_id, A_id);
+	return res;
+}
+
+Result Battlefield_APC_Pop(char *W_id, char *S_id, char *A_id, PBattlefield battlefield) {
+	PSquad squad = NULL;
+	Result res;
+	if ((W_id == NULL) || (S_id == NULL) || (A_id == NULL) || battlefield == NULL) {
+		printf(ARG_ERR_MSG);
+		return FAILURE;
+	}
+	squad = get_squad(W_id, S_id, battlefield);
+	res = Squad_APC_Pop(squad, A_id);
+	return res;
+}
+
+void Battlefield_Warzone_Raise_Alert(char *W_id, PBattlefield battlefield) {
+	PWarZone warzone = NULL;
+	PWarZone curr_warzone = NULL;
+	Result res;
+	int alert_level;
+	if ((W_id == NULL) || (battlefield == NULL)) {
+		printf(ARG_ERR_MSG);
+		return;
+	}
+	warzone = List_Get_Elem(battlefield->Warzones, W_id);
+	if (warzone == NULL) {
+		printf("Error: No Such War Zone");
+		return;
+	}
+	alert_level = WarZone_Raise_Alert(warzone);
+	if (alert_level == 0) {
+		curr_warzone = List_Get_First(battlefield->Warzones);
+		while (curr_warzone)
+		{
+			if (curr_warzone != warzone) {
+				res = move_squad_list(curr_warzone, warzone, battlefield);
+				if (res == FAILURE)
+					return;
+			}
+			curr_warzone = List_Get_Next(battlefield->Warzones);
+		}
+	}
 }
 
 /**User Functions**/

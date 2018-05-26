@@ -8,6 +8,12 @@ typedef struct _Squad {
 	char ID[MAX_ID_LENGTH];
 } Squad;
 
+//**************************************************************************************************************************************
+//* Function name: Check_Valid_Id
+//* Function description: Checks if the string id is a valid squad id.
+//* Parameters: id - a pointer to a char that holds the squad id.
+//* Return value: true is the id is valid and false otherwise
+//**************************************************************************************************************************************
 bool Check_Valid_ID(char *id){
 	if(id == NULL || id[0] != 'S' || id[1] != 'q' || strlen(id) != SQUAD_ID_LEN){
 		return false;
@@ -15,6 +21,12 @@ bool Check_Valid_ID(char *id){
 	return true;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Create
+//* Function description: Creates a squad.
+//* Parameters: id - a pointer to a char that holds the squad id.
+//* Return value: A pointer to the new squad.
+//**************************************************************************************************************************************
 PSquad Squad_Create(char *id){
 	PSquad new_squad = NULL;
 	PList soldier_list = NULL;
@@ -54,6 +66,12 @@ PSquad Squad_Create(char *id){
     return new_squad;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Delete
+//* Function description: Deletes a squad.
+//* Parameters: psquad - a pointer to a squad.
+//* Return value: void.
+//**************************************************************************************************************************************
 void Squad_Delete(PSquad psquad){
 
 	if(psquad == NULL){
@@ -66,6 +84,12 @@ void Squad_Delete(PSquad psquad){
 	free(psquad);
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Print
+//* Function description: Prints the squad information.
+//* Parameters: psquad - a pointer to a squad.
+//* Return value: void.
+//**************************************************************************************************************************************
 void Squad_Print(PSquad psquad){
 
 	if(psquad == NULL){
@@ -80,6 +104,12 @@ void Squad_Print(PSquad psquad){
 	List_Print(psquad->Soldiers);
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Duplicate
+//* Function description: Creates an exact copy of a squad.
+//* Parameters: old_squad - a pointer to a quad.
+//* Return value: A pointer to a new squad.
+//**************************************************************************************************************************************
 PSquad Squad_Duplicate(PSquad old_squad){
 	PSquad new_squad = NULL;
 
@@ -103,6 +133,14 @@ PSquad Squad_Duplicate(PSquad old_squad){
 	return new_squad;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Add_Soldier
+//* Function description: Adds a soldier to the squad.
+//* Parameters: psquad - a pointer to a squad.
+//* Parameters: id - a pointer to a char that holds the soldier id.
+//* Parameters: pos - a pointer to a char that holds the soldier position.
+//* Return value: The Result of the action.
+//**************************************************************************************************************************************
 Result Squad_Add_Soldier(PSquad psquad, char *id, char *pos) {
 	PSoldier new_soldier;
 	Result res;
@@ -127,6 +165,13 @@ Result Squad_Add_Soldier(PSquad psquad, char *id, char *pos) {
 	return res;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Add_APC
+//* Function description: Adds an APC to the squad.
+//* Parameters: psquad - a pointer to a squad.
+//* Parameters: id - a pointer to a char that holds the APC id.
+//* Return value: The Result of the action.
+//**************************************************************************************************************************************
 Result Squad_Add_APC(PSquad psquad, char *id) {
 	PAPC new_APC;
 	Result res;
@@ -147,6 +192,14 @@ Result Squad_Add_APC(PSquad psquad, char *id) {
 	return res;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Insert_Sold_APC
+//* Function description: Inserts a soldier that is in the squad into an APC that is in the squad.
+//* Parameters: psquad - a pointer to a squad.
+//* Parameters: sold_id - a pointer to a char that holds the soldier id.
+//* Parameters: APC_id - a pointer to a char that holds the APC id.
+//* Return value: The Result of the action.
+//**************************************************************************************************************************************
 Result Squad_Insert_Sold_APC(PSquad psquad, char *sold_id, char *APC_id) {
 	PSoldier soldier;
 	PAPC APC;
@@ -168,7 +221,13 @@ Result Squad_Insert_Sold_APC(PSquad psquad, char *sold_id, char *APC_id) {
 	return res;
 }
 
-
+//**************************************************************************************************************************************
+//* Function name: Squad_APC_Pop
+//* Function description: Removes the top soldier from an APC that is in the squad and places him as a soldier in the squad.
+//* Parameters: psquad - a pointer to a squad.
+//* Parameters: APC_id - a pointer to a char that holds the APC id.
+//* Return value: The Result of the action.
+//**************************************************************************************************************************************
 Result Squad_APC_Pop(PSquad psquad, char *APC_id){
     PSoldier soldier = NULL;
     PAPC APC = NULL;
@@ -190,6 +249,13 @@ Result Squad_APC_Pop(PSquad psquad, char *APC_id){
     return res;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Delete_Soldier
+//* Function description: Removes a soldier from the squad.
+//* Parameters: psquad - a pointer to a squad.
+//* Parameters: soldier_id - a pointer to a char that holds the soldier id.
+//* Return value: The Result of the action.
+//**************************************************************************************************************************************
 Result Squad_Delete_Soldier(PSquad psquad, char *soldier_id){
     Result res;
 
@@ -206,7 +272,13 @@ Result Squad_Delete_Soldier(PSquad psquad, char *soldier_id){
     return res;
 }
 
-
+//**************************************************************************************************************************************
+//* Function name: Squad_Delete_APC
+//* Function description: Removes an APC from the squad.
+//* Parameters: psquad - a pointer to a squad.
+//* Parameters: APC_id - a pointer to a char that holds the APC id.
+//* Return value: The Result of the action.
+//**************************************************************************************************************************************
 Result Squad_Delete_APC(PSquad psquad, char *APC_id){
 	Result res;
 	PAPC APC = NULL;
@@ -229,6 +301,13 @@ Result Squad_Delete_APC(PSquad psquad, char *APC_id){
     return res;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Soldier_Get_Id
+//* Function description: copies into id the id of the squad.
+//* Parameters: psquad - a pointer to a squad.
+//* Parameters: id - a pointer to a string.
+//* Return value: void.
+//**************************************************************************************************************************************
 void Squad_Get_ID(PSquad psquad,char *id){
 
 	if(psquad == NULL){
