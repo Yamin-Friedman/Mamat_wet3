@@ -6,6 +6,7 @@
 typedef struct _Battlefield *PBattlefield;
 
 PBattlefield Battlefield_Create();
+void Battlefield_Delete(PBattlefield);
 
 /**Warzone List Functions**/
 PElem WarZone_Clone_Func(PElem);

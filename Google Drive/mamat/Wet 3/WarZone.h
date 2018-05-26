@@ -11,10 +11,18 @@
 
 typedef struct _WarZone *PWarZone;
 
-/*Squad Function Declarations*/
 
+/*WarZone Function Declarations*/
 
-/*List Functions*/
+PWarZone Warzone_Create(char*);
+void WarZone_Delete(PWarZone);
+void WarZone_Print(PWarZone);
+PWarZone WarZone_Duplicate(PWarZone);
+int WarZone_Raise_Alert(PWarZone);
+void WarZone_Get_ID(PWarZone , char*);
+PList WarZone_Get_List(PWarZone);
+
+/*Squad list Function Declarations*/
 
 PElem Squad_Clone_Func(PElem);
 void Squad_Destroy_Func(PElem);

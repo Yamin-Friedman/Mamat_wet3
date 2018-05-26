@@ -101,6 +101,26 @@ int WarZone_Raise_Alert(PWarZone pWarZone){
 	return pWarZone->Alert_Level;
 }
 
+void WarZone_Get_ID(PWarZone pwarzone, char* id){
+
+	if(pwarzone == NULL){
+		printf(ARG_ERR_MSG);
+		return;
+	}
+
+	strcpy(id,pwarzone->ID);
+}
+
+PList WarZone_Get_List(PWarZone pwarzone){
+
+	if(pwarzone == NULL){
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+
+	return pwarzone->Squads;
+}
+
 /**Squad list functions**/
 PElem Squad_Clone_Func(PElem pelem){
 	PSquad new_squad = NULL;

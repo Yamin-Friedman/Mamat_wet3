@@ -221,16 +221,15 @@ Result Squad_Delete_APC(PSquad psquad, char *APC_id){
     return res;
 }
 
-char* Squad_Get_ID(PSquad psquad,char *id){
+void Squad_Get_ID(PSquad psquad,char *id){
 
 	if(psquad == NULL){
 		printf(ARG_ERR_MSG);
-		return FAILURE;
+		return;
 	}
 
 	strcpy(id,psquad->ID);
 
-	return id;
 }
 
 /**Soldier list functions**/
