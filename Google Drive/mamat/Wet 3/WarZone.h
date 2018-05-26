@@ -19,7 +19,7 @@ void WarZone_Delete(PWarZone);
 void WarZone_Print(PWarZone);
 PWarZone WarZone_Duplicate(PWarZone);
 int WarZone_Raise_Alert(PWarZone);
-void WarZone_Get_ID(PWarZone , char*);
+void WarZone_Get_ID(PWarZone, char*);
 PList WarZone_Get_List(PWarZone);
 
 /*Squad list Function Declarations*/

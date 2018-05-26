@@ -166,12 +166,12 @@ void Squad_Print_Func(PElem pelem){
 }
 
 PKey Squad_Get_Key_Func(PElem pelem){
-	char id[MAX_ID_LENGTH];
+	PKey key = NULL;
 
 	if(pelem == NULL){
 		printf(ARG_ERR_MSG);
 		return NULL;
 	}
-
-	return Squad_Get_ID((PSquad)pelem,id);
+	Squad_Get_ID((PSquad)pelem,key);
+	return key;
 }

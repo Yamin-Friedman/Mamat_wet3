@@ -210,11 +210,19 @@ Result Squad_Delete_Soldier(PSquad psquad, char *soldier_id){
 Result Squad_Delete_APC(PSquad psquad, char *APC_id){
 	Result res;
 	PAPC APC = NULL;
+	int num_soldiers = 0;
 
 	if(psquad == NULL || APC_id == NULL){
 		printf(ARG_ERR_MSG);
 		return FAILURE;
 	}
+	APC = List_Get_Elem(psquad->APCs,APC_id);
+	if(APC == NULL){
+		return FAILURE;
+	}
+
+	num_soldiers = APC_Get_Num_Soldiers(APC);
+	psquad->Count -= num_soldiers;
 
     res = List_Remove_Elem(psquad->APCs,APC_id);
 
@@ -277,14 +285,14 @@ void Soldier_Print_Func(PElem pelem){
 }
 
 PKey Soldier_Get_Key(PElem pelem){
-    char id[MAX_ID_LENGTH];
+    PKey key = NULL;
 
     if(pelem == NULL){
         printf(ARG_ERR_MSG);
         return NULL;
     }
-
-    return Soldier_Get_Id((PSoldier)pelem,id);
+	Soldier_Get_Id((PSoldier)pelem,key);
+    return key;
 }
 
 /**APC list functions**/
@@ -327,12 +335,15 @@ void APC_Print_Func(PElem pelem) {
 }
 
 PKey APC_Get_Key(PElem pelem) {
-    char id[MAX_ID_LENGTH];
+    PKey key = NULL;
 
 	if (pelem == NULL) {
 		printf(ARG_ERR_MSG);
 		return NULL;
 	}
-	return APC_Get_Id((PAPC)pelem,id);
+
+	APC_Get_Id((PAPC)pelem,key);
+
+	return key;
 }
 
