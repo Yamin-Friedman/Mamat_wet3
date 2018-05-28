@@ -9,7 +9,7 @@
 #include <stdbool.h>
 
 #define MAX_ARG 10					// for main input line
-#define MAX_INPUT_LINE 100			// for main input line
+#define MAX_INPUT_LINE 256			// for main input line
 #define APC_MAX_Soldiers 6			// for APC
 #define MAX_ID_LENGTH 8			    // for Structs IDs
 #define NUM_POSITIONS 5

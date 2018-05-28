@@ -94,10 +94,9 @@ Result List_Add_Elem(PList plist, PElem pelem) {
 	}
 
 	new_node->plist = plist;
-	new_node->pelem = pelem;
+	new_node->pelem = plist->clone_func(pelem);
 	new_node->next_node = NULL;
 
-	curr_node = plist->first_node;
 	if (plist->first_node == NULL)
 	{
 		plist->first_node = new_node;

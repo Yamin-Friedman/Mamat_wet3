@@ -101,6 +101,27 @@ int WarZone_Raise_Alert(PWarZone pWarZone){
 	return pWarZone->Alert_Level;
 }
 
+Result WarZone_Move_Squad(PWarZone S_warzone,PWarZone D_warzone,PSquad psquad){
+	Result res;
+
+	if(S_warzone == NULL || D_warzone == NULL || psquad == NULL){
+		printf(ARG_ERR_MSG);
+		return FAILURE;
+	}
+
+	res = List_Add_Elem(D_warzone->Squads,psquad);
+	if(res == FAILURE){
+		return FAILURE;
+	}
+	res = List_Remove_Elem(S_warzone->Squads,psquad);
+	if(res == FAILURE){
+		return  FAILURE;
+	}
+
+	return SUCCESS;
+
+}
+
 void WarZone_Get_ID(PWarZone pwarzone, char* id){
 
 	if(pwarzone == NULL){
@@ -109,6 +130,30 @@ void WarZone_Get_ID(PWarZone pwarzone, char* id){
 	}
 
 	strcpy(id,pwarzone->ID);
+}
+
+PSquad WarZone_Get_First_Squad(PWarZone warZone){
+	PSquad squad = NULL;
+
+	if(warZone == NULL){
+		return  NULL;
+	}
+
+	squad = List_Get_First(warZone->Squads);
+
+	return squad;
+}
+
+PSquad WarZone_Get_Next_Squad(PWarZone warZone){
+	PSquad squad = NULL;
+
+	if(warZone == NULL){
+		return NULL;
+	}
+
+	squad = List_Get_Next(warZone->Squads);
+
+	return squad;
 }
 
 PList WarZone_Get_List(PWarZone pwarzone){

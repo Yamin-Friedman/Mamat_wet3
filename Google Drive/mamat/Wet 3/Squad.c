@@ -162,6 +162,9 @@ Result Squad_Add_Soldier(PSquad psquad, char *id, char *pos) {
 	if(res){
 		psquad->Count++;
 	}
+
+	Soldier_Delete(new_soldier);
+
 	return res;
 }
 
@@ -189,6 +192,9 @@ Result Squad_Add_APC(PSquad psquad, char *id) {
 		return FAILURE;
 	}
 	res = List_Add_Elem(psquad->APCs, new_APC);
+
+	APC_Delete(new_APC);
+
 	return res;
 }
 
@@ -317,6 +323,71 @@ void Squad_Get_ID(PSquad psquad,char *id){
 
 	strcpy(id,psquad->ID);
 
+}
+
+PAPC Squad_Get_APC(PSquad psquad,char *id){
+	PAPC APC = NULL;
+
+	if(psquad == NULL || id == NULL){
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+
+	APC = List_Get_Elem(psquad->APCs,id);
+
+	return APC;
+}
+
+PAPC Squad_Get_First_APC(PSquad psquad){
+	PAPC APC = NULL;
+
+	if(psquad == NULL){
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+
+	APC = List_Get_First(psquad->APCs);
+
+	return APC;
+}
+
+PAPC Squad_Get_Next_APC(PSquad psquad){
+	PAPC APC = NULL;
+
+	if(psquad == NULL){
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+
+	APC = List_Get_Next(psquad->APCs);
+
+	return APC;
+}
+
+PSoldier Squad_Get_First_Soldier(PSquad psquad){
+	PSoldier soldier = NULL;
+
+	if(psquad == NULL){
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+
+	soldier = List_Get_First(psquad->Soldiers);
+
+	return soldier;
+}
+
+PSoldier Squad_Get_Next_Soldier(PSquad psquad){
+	PSoldier soldier = NULL;
+
+	if(psquad == NULL){
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+
+	soldier = List_Get_Next(psquad->Soldiers);
+
+	return soldier;
 }
 
 /**Soldier list functions**/

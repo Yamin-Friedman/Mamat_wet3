@@ -47,12 +47,70 @@ static Result move_squad_list(PWarZone S_warzone, PWarZone D_warzone, PBattlefie
 	curr_squad = List_Get_First(squad_list);
 	while (curr_squad)
 	{
-		res = Battlefield_Move_Squad(S_warzone, D_warzone, curr_squad, battlefield);
+		res = WarZone_Move_Squad(S_warzone, D_warzone, curr_squad);
 		if (res == FAILURE) {
 			return FAILURE;
 		}
 		curr_squad = List_Get_Next(squad_list);
 	}
+	return SUCCESS;
+}
+
+static Result Battlefield_Remove_Squad(PBattlefield battlefield,PSquad pSquad){
+	PAPC pAPC = NULL;
+	PSoldier psoldier = NULL;
+	char *id = NULL;
+
+	if(battlefield == NULL || pSquad== NULL){
+		return FAILURE;
+	}
+
+	pAPC = Squad_Get_First_APC(pSquad);
+	while (pAPC != NULL){
+		Battlefield_Remove_APC(battlefield,pAPC);
+		pAPC = Squad_Get_Next_APC(pSquad);
+	}
+	psoldier = Squad_Get_First_Soldier(pSquad);
+	while (psoldier != NULL){
+		Battlefield_Remove_Soldier(battlefield,psoldier);
+		psoldier = Squad_Get_Next_Soldier(pSquad);
+	}
+
+	return SUCCESS;
+}
+
+static Result Battlefield_Remove_APC(PBattlefield battlefield,PAPC pAPC){
+	PSoldier psoldier = NULL;
+	char *id = NULL;
+
+	if(battlefield == NULL || pAPC == NULL){
+		return FAILURE;
+	}
+
+	psoldier = APC_Pop(pAPC);
+	while (psoldier){
+		Soldier_Get_Id(psoldier,id);
+		List_Remove_Elem(battlefield->Soldiers,id);
+		Soldier_Delete(psoldier);
+		psoldier = APC_Pop(pAPC);
+	}
+	APC_Get_Id(pAPC,id);
+	List_Remove_Elem(battlefield->APCs,id);
+
+	return SUCCESS;
+}
+
+static Result Battlefield_Remove_Soldier(PBattlefield battlefield,PSoldier soldier){
+	char *id = NULL;
+
+	if(battlefield == NULL || soldier == NULL){
+		return FAILURE;
+	}
+
+
+	Soldier_Get_Id(soldier,id);
+	List_Remove_Elem(battlefield->Soldiers,id);
+
 	return SUCCESS;
 }
 
@@ -129,20 +187,36 @@ Result Battlefield_Add_WarZone(PBattlefield battlefield, char *id){
 		return FAILURE;
 	}
 
+	WarZone_Delete(new_warzone);
+
 	return SUCCESS;
 }
 
 Result Battlefield_Delete_WarZone(PBattlefield battlefield, char *id){
 	Result res;
+	PWarZone pWarZone = NULL;
+	PSquad pSquad = NULL;
 
 	if(battlefield == NULL || id == NULL){
 		printf(ARG_ERR_MSG);
 		return FAILURE;
 	}
 
+	pWarZone = WarZone_Duplicate(List_Get_Elem(battlefield->Warzones,id));
+	if(pWarZone == NULL){
+		printf("Error: No Such War Zone\n");
+		return FAILURE;
+	}
+	pSquad = WarZone_Get_First_Squad(pWarZone);
+	while (pSquad != NULL){
+		Battlefield_Remove_Squad(battlefield,pSquad);
+		pSquad = WarZone_Get_Next_Squad(pWarZone);
+	}
+	WarZone_Delete(pWarZone);
+
+
 	res = List_Remove_Elem(battlefield->Warzones,id);
 	if(res == FAILURE){
-		printf("Error: No Such War Zone\n");
 		return FAILURE;
 	}
 
@@ -180,11 +254,22 @@ Result Battlefield_Add_Squad(PBattlefield battlefield, char *warzone_id, char *s
 		return FAILURE;
 	}
 
+	res = List_Add_Elem(battlefield->Squads,new_squad);
+	if(res == FAILURE){
+		return FAILURE;
+	}
+
+	Squad_Delete(new_squad);
+
 	return SUCCESS;
 }
 
 Result Battlefield_Delete_Squad(PBattlefield battlefield, char *warzone_id, char *squad_id){
 	PWarZone warZone = NULL;
+	PSquad psquad = NULL;
+	PAPC pAPC = NULL;
+	PSoldier psoldier = NULL;
+	char *id = NULL;
 	Result res;
 
 	if(battlefield == NULL || squad_id == NULL  || warzone_id == NULL){
@@ -198,9 +283,17 @@ Result Battlefield_Delete_Squad(PBattlefield battlefield, char *warzone_id, char
 		return FAILURE;
 	}
 
+	// This code is to remove the squad and all its contents from the battlefield lists
+	psquad = Squad_Duplicate(List_Get_Elem(WarZone_Get_List(warZone),squad_id));
+	if(psquad == NULL){
+		printf("Error: No Such Squad\n");
+		return FAILURE;
+	}
+	Battlefield_Remove_Squad(battlefield,psquad);
+	Squad_Delete(psquad);
+
 	res = List_Remove_Elem(WarZone_Get_List(warZone),squad_id);
 	if(res == FAILURE){
-		printf("Error: No Such Squad\n");
 		return FAILURE;
 	}
 	return SUCCESS;
@@ -208,6 +301,7 @@ Result Battlefield_Delete_Squad(PBattlefield battlefield, char *warzone_id, char
 
 Result Battlefield_Add_APC(PBattlefield battlefield, char *warzone_id, char *squad_id, char *APC_id){
 	PSquad squad = NULL;
+	PAPC new_APC = NULL;
 	PWarZone warZone = NULL;
 	Result res;
 
@@ -239,12 +333,24 @@ Result Battlefield_Add_APC(PBattlefield battlefield, char *warzone_id, char *squ
 		return FAILURE;
 	}
 
+	new_APC = APC_Create(APC_id);
+
+	res = List_Add_Elem(battlefield->APCs,new_APC);
+	if(res == FAILURE){
+		return FAILURE;
+	}
+
+	APC_Delete(new_APC);
+
 	return SUCCESS;
 }
 
 Result Battlefield_Delete_APC(PBattlefield battlefield, char *warzone_id, char *squad_id, char *APC_id){
 	PSquad squad = NULL;
+	PAPC pAPC = NULL;
+	PSoldier psoldier = NULL;
 	PWarZone warZone = NULL;
+	char *id = NULL;
 	Result res;
 
 	if(battlefield == NULL || squad_id == NULL  || warzone_id == NULL || APC_id == NULL){
@@ -263,10 +369,19 @@ Result Battlefield_Delete_APC(PBattlefield battlefield, char *warzone_id, char *
 		printf("Error: No Such Squad\n");
 		return FAILURE;
 	}
+	// This code is to remove the APC and all it's contents from the battlefield list
+	pAPC = APC_Duplicate(Squad_Get_APC(squad,APC_id));
+	if(pAPC == NULL) {
+		printf("Error: No Such APC\n");
+		return FAILURE;
+	}
+	Battlefield_Remove_APC(battlefield,pAPC);
+	APC_Delete(pAPC);
+
+
 
 	res = Squad_Delete_APC(squad,APC_id);
 	if(res == FAILURE){
-		printf("Error: No Such APC\n");
 		return FAILURE;
 	}
 
@@ -275,6 +390,7 @@ Result Battlefield_Delete_APC(PBattlefield battlefield, char *warzone_id, char *
 
 Result Battlefield_Add_Soldier(PBattlefield battlefield, char *warzone_id, char *squad_id, char *soldier_id, char *soldier_pos){
 	PSquad squad = NULL;
+	PSoldier new_soldier = NULL;
 	PWarZone warZone = NULL;
 	Result res;
 
@@ -306,6 +422,15 @@ Result Battlefield_Add_Soldier(PBattlefield battlefield, char *warzone_id, char 
 		return FAILURE;
 	}
 
+	new_soldier = Soldier_Create(soldier_id,soldier_pos);
+
+	res = List_Add_Elem(battlefield->Soldiers,new_soldier);
+	if(res == FAILURE){
+		return FAILURE;
+	}
+
+	Soldier_Delete(new_soldier);
+
 	return SUCCESS;
 }
 
@@ -334,6 +459,11 @@ Result Battlefield_Delete_Soldier(PBattlefield battlefield, char *warzone_id, ch
 	res = Squad_Delete_Soldier(squad,soldier_id);
 	if(res == FAILURE){
 		printf("Error: No Such Soldier\n");
+		return FAILURE;
+	}
+
+	res = List_Remove_Elem(battlefield->Soldiers,soldier_id);
+	if(res == FAILURE){
 		return FAILURE;
 	}
 
@@ -393,6 +523,8 @@ void Battlefield_Warzone_Raise_Alert(char *W_id, PBattlefield battlefield) {
 		}
 	}
 }
+
+
 
 /**User Functions**/
 /**Warzone List Functions**/

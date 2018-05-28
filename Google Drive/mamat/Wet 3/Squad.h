@@ -22,6 +22,11 @@ Result Squad_APC_Pop(PSquad, char*);
 Result Squad_Delete_Soldier(PSquad, char*);
 Result Squad_Delete_APC(PSquad, char*);
 void Squad_Get_ID(PSquad,char*);
+PAPC Squad_Get_APC(PSquad,char*);
+PAPC Squad_Get_First_APC(PSquad);
+PAPC Squad_Get_Next_APC(PSquad);
+PSoldier Squad_Get_First_Soldier(PSquad);
+PSoldier Squad_Get_Next_Soldier(PSquad);
 
 /*List Functions*/
 
