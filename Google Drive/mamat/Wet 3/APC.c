@@ -157,19 +157,18 @@ PSoldier APC_Pop(PAPC APC) {
 
 //**************************************************************************************************************************************
 //* Function name: APC_Get_Id
-//* Function description: copies into id the id of the APC.
+//* Function description: returns a pointer to the id of the APC.
 //* Parameters: pAPC - a pointer to an APC.
-//* Parameters: id - a pointer to a string.
-//* Return value: void.
+//* Return value: A pointer to the APC id.
 //**************************************************************************************************************************************
-void APC_Get_Id(PAPC pAPC, char* id){
+char *APC_Get_Id(PAPC pAPC){
 
     if(pAPC == NULL){
         printf(ARG_ERR_MSG);
-        return;
+        return NULL;
     }
 
-    strcpy(id,pAPC->ID);
+	return pAPC->ID;
 }
 
 //**************************************************************************************************************************************

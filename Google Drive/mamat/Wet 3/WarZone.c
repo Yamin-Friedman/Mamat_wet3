@@ -1,5 +1,5 @@
 #include "WarZone.h"
-
+#pragma warning(disable: 4996)
 
 typedef struct _WarZone {
 	PList Squads;
@@ -210,13 +210,15 @@ void Squad_Print_Func(PElem pelem){
 	Squad_Print((PSquad)pelem);
 }
 
-PKey Squad_Get_Key_Func(PElem pelem){
+PKey Squad_Get_Key_Func(PElem pelem) {
 	PKey key = NULL;
 
-	if(pelem == NULL){
+	if (pelem == NULL) {
 		printf(ARG_ERR_MSG);
 		return NULL;
 	}
-	Squad_Get_ID((PSquad)pelem,key);
+
+	Squad_Get_ID((PSquad)pelem, key);
+
 	return key;
 }

@@ -13,7 +13,7 @@ typedef PElem (*CLONE_FUNC)(PElem);
 typedef void  (*DESTROY_FUNC)(PElem);
 typedef bool  (*COMPARE_KEYS_FUNC)(PKey,PKey);
 typedef void  (*PRINT_FUNC)(PElem);
-typedef PKey  (*GET_KEY)(PElem);
+typedef PKey  (*GET_KEY)(PElem PKey);
 
 PList List_Create(CLONE_FUNC, DESTROY_FUNC, COMPARE_KEYS_FUNC, PRINT_FUNC, GET_KEY);
 void List_Delete(PList);

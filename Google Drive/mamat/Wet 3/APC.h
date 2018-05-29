@@ -54,12 +54,11 @@ Result APC_Insert_Soldier(PAPC, PSoldier);
 PSoldier APC_Pop(PAPC);
 //**************************************************************************************************************************************
 //* Function name: APC_Get_Id
-//* Function description: copies into id the id of the APC.
+//* Function description: returns a pointer to the id of the APC.
 //* Parameters: pAPC - a pointer to an APC.
-//* Parameters: id - a pointer to a string.
-//* Return value: void.
+//* Return value: A pointer to the APC id.
 //**************************************************************************************************************************************
-void APC_Get_Id(PAPC, char*);
+char *APC_Get_Id(PAPC);
 //**************************************************************************************************************************************
 //* Function name: APC_Get_Num_Soldiers
 //* Function description: Returns the number of soldiers in the APC.

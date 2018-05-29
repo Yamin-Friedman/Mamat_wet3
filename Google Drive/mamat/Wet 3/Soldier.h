@@ -38,12 +38,11 @@ void Soldier_Print(PSoldier);
 PSoldier Soldier_Duplicate(PSoldier);
 //**************************************************************************************************************************************
 //* Function name: Soldier_Get_Id
-//* Function description: copies into id the id of the soldier.
+//* Function description: returns a pointer to the id of the soldier.
 //* Parameters: Soldier - a pointer to a soldier.
-//* Parameters: id - a pointer to a string.
-//* Return value: void.
+//* Return value: a pointer to the soldier id.
 //**************************************************************************************************************************************
-void Soldier_Get_Id(PSoldier, char*);
+char *Soldier_Get_Id(PSoldier);
 
 
 #endif

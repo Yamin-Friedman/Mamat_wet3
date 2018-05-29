@@ -14,7 +14,7 @@ typedef struct _Squad {
 //* Parameters: id - a pointer to a char that holds the squad id.
 //* Return value: true is the id is valid and false otherwise
 //**************************************************************************************************************************************
-bool Check_Valid_ID(char *id){
+static bool Check_Valid_ID(char *id){
 	if(id == NULL || id[0] != 'S' || id[1] != 'q' || strlen(id) != SQUAD_ID_LEN){
 		return false;
 	}
@@ -308,7 +308,7 @@ Result Squad_Delete_APC(PSquad psquad, char *APC_id){
 }
 
 //**************************************************************************************************************************************
-//* Function name: Soldier_Get_Id
+//* Function name: Squad_Get_Id
 //* Function description: copies into id the id of the squad.
 //* Parameters: psquad - a pointer to a squad.
 //* Parameters: id - a pointer to a string.
@@ -325,6 +325,13 @@ void Squad_Get_ID(PSquad psquad,char *id){
 
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Get_APC
+//* Function description: Returns a pointer to an APC based on id if the APC is in the squad.
+//* Parameters: psquad - a pointer to a squad.
+//* Parameters: id - a pointer to a string with the APC id.
+//* Return value: A pointer to an APC.
+//**************************************************************************************************************************************
 PAPC Squad_Get_APC(PSquad psquad,char *id){
 	PAPC APC = NULL;
 
@@ -338,6 +345,12 @@ PAPC Squad_Get_APC(PSquad psquad,char *id){
 	return APC;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Get_First_APC
+//* Function description: Returns a pointer to the first APC in the squad list.
+//* Parameters: psquad - a pointer to a squad.
+//* Return value: A pointer to an APC.
+//**************************************************************************************************************************************
 PAPC Squad_Get_First_APC(PSquad psquad){
 	PAPC APC = NULL;
 
@@ -351,6 +364,12 @@ PAPC Squad_Get_First_APC(PSquad psquad){
 	return APC;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Get_Next_APC
+//* Function description: Returns a pointer to the next APC in the squad list.
+//* Parameters: psquad - a pointer to a squad.
+//* Return value: A pointer to an APC.
+//**************************************************************************************************************************************
 PAPC Squad_Get_Next_APC(PSquad psquad){
 	PAPC APC = NULL;
 
@@ -364,6 +383,12 @@ PAPC Squad_Get_Next_APC(PSquad psquad){
 	return APC;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Get_First_Soldier
+//* Function description: Returns a pointer to the first soldier in the squad list.
+//* Parameters: psquad - a pointer to a squad.
+//* Return value: A pointer to a soldier.
+//**************************************************************************************************************************************
 PSoldier Squad_Get_First_Soldier(PSquad psquad){
 	PSoldier soldier = NULL;
 
@@ -377,6 +402,12 @@ PSoldier Squad_Get_First_Soldier(PSquad psquad){
 	return soldier;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Squad_Get_Next_Soldier
+//* Function description: Returns a pointer to the next soldier in the squad list.
+//* Parameters: psquad - a pointer to a squad.
+//* Return value: A pointer to a soldier.
+//**************************************************************************************************************************************
 PSoldier Squad_Get_Next_Soldier(PSquad psquad){
 	PSoldier soldier = NULL;
 
@@ -391,6 +422,12 @@ PSoldier Squad_Get_Next_Soldier(PSquad psquad){
 }
 
 /**Soldier list functions**/
+//**************************************************************************************************************************************
+//* Function name: Soldier_Clone_Func
+//* Function description: User clone function for using the list ADT with soldiers.
+//* Parameters: pelem - a pointer to a list element.
+//* Return value: A pointer to a list element.
+//**************************************************************************************************************************************
 PElem Soldier_Clone_Func(PElem pelem){
 	PSoldier new_soldier = NULL;
 
@@ -403,6 +440,12 @@ PElem Soldier_Clone_Func(PElem pelem){
 	return new_soldier;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Soldier_Destroy_Func
+//* Function description: User destroy function for using the list ADT with soldiers.
+//* Parameters: pelem - a pointer to a list element.
+//* Return value: Void.
+//**************************************************************************************************************************************
 void Soldier_Destroy_Func(PElem pelem){
 
     if(pelem == NULL){
@@ -412,6 +455,13 @@ void Soldier_Destroy_Func(PElem pelem){
     Soldier_Delete((PSoldier)pelem);
 }
 
+//**************************************************************************************************************************************
+//* Function name: Soldier_Compare_Keys_Func
+//* Function description: User compare keys function for using the list ADT with soldiers.
+//* Parameters: key1 - a pointer to a list key.
+//* Parameters: key2 - a pointer to a list key.
+//* Return value: A bool that is true if the keys are the same.
+//**************************************************************************************************************************************
 bool Soldier_Compare_Keys_Func(PKey key1, PKey key2){
 
     if(key1 == NULL || key2 == NULL){
@@ -425,6 +475,12 @@ bool Soldier_Compare_Keys_Func(PKey key1, PKey key2){
     return false;
 }
 
+//**************************************************************************************************************************************
+//* Function name: Soldier_Print_Func
+//* Function description: User print function for using the list ADT with soldiers.
+//* Parameters: pelem - a pointer to a list element.
+//* Return value: Void.
+//**************************************************************************************************************************************
 void Soldier_Print_Func(PElem pelem){
 
     if(pelem == NULL){
@@ -434,19 +490,33 @@ void Soldier_Print_Func(PElem pelem){
     Soldier_Print((PSoldier)pelem);
 }
 
-PKey Soldier_Get_Key(PElem pelem){
-    PKey key = NULL;
+//**************************************************************************************************************************************
+//* Function name: Soldier_Get_Key
+//* Function description: User get key function for using the list ADT with soldiers.
+//* Parameters: pelem - a pointer to a list element.
+//* Return value: A pointer to a list key.
+//**************************************************************************************************************************************
 
-    if(pelem == NULL){
-        printf(ARG_ERR_MSG);
-        return NULL;
-    }
-	Soldier_Get_Id((PSoldier)pelem,key);
-    return key;
+PKey Soldier_Get_Key(PElem pelem) {
+	PKey key = NULL;
+
+	if (pelem == NULL) {
+		printf(ARG_ERR_MSG);
+		return NULL;
+	}
+
+	Soldier_Get_Id((PSoldier)pelem, key);
+
+	return key;
 }
-
 /**APC list functions**/
 
+//**************************************************************************************************************************************
+//* Function name: APC_Clone_Func
+//* Function description: User clone function for using the list ADT with APCs.
+//* Parameters: pelem - a pointer to a list element.
+//* Return value: A pointer to a list element.
+//**************************************************************************************************************************************
 PElem APC_Clone_Func(PElem pelem) {
 	PAPC new_APC;
 	if (pelem == NULL) {
@@ -458,6 +528,12 @@ PElem APC_Clone_Func(PElem pelem) {
 	return new_APC;
 }
 
+//**************************************************************************************************************************************
+//* Function name: APC_Destroy_Func
+//* Function description: User destroy function for using the list ADT with APCs.
+//* Parameters: pelem - a pointer to a list element.
+//* Return value: Void.
+//**************************************************************************************************************************************
 void APC_Destroy_Func(PElem pelem) {
 	if (pelem == NULL) {
 		printf(ARG_ERR_MSG);
@@ -465,6 +541,12 @@ void APC_Destroy_Func(PElem pelem) {
 	APC_Delete((PAPC)pelem);
 }
 
+//**************************************************************************************************************************************
+//* Function name: APC_Compare_Keys_Func
+//* Function description: User compare keys function for using the list ADT with APCs.
+//* Parameters: pelem - a pointer to a list element.
+//* Return value: A bool that is true if the keys are the same.
+//**************************************************************************************************************************************
 bool APC_Compare_Keys_Func(PKey pkey1, PKey pkey2) {
 	if (pkey1 == NULL || pkey2 == NULL) {
 		printf(ARG_ERR_MSG);
@@ -477,6 +559,12 @@ bool APC_Compare_Keys_Func(PKey pkey1, PKey pkey2) {
 	return false;
 }
 
+//**************************************************************************************************************************************
+//* Function name: APC_Print_Func
+//* Function description: User print function for using the list ADT with APCs.
+//* Parameters: pelem - a pointer to a list element.
+//* Return value: Void.
+//**************************************************************************************************************************************
 void APC_Print_Func(PElem pelem) {
 	if (pelem == NULL) {
 		printf(ARG_ERR_MSG);
@@ -484,15 +572,22 @@ void APC_Print_Func(PElem pelem) {
 	APC_Print((PAPC)pelem);
 }
 
+//**************************************************************************************************************************************
+//* Function name: APC_Get_Key
+//* Function description: User get key function for using the list ADT with APCs.
+//* Parameters: pelem - a pointer to a list element.
+//* Return value: A pointer to a list key.
+//**************************************************************************************************************************************
+
 PKey APC_Get_Key(PElem pelem) {
-    PKey key = NULL;
+	PKey key = NULL;
 
 	if (pelem == NULL) {
 		printf(ARG_ERR_MSG);
 		return NULL;
 	}
 
-	APC_Get_Id((PAPC)pelem,key);
+	APC_Get_Id((PAPC)pelem, key);
 
 	return key;
 }

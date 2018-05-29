@@ -19,9 +19,11 @@
 
 #define MALLOC_ERR_MSG "Error: Cant perform Malloc\n"
 #define ARG_ERR_MSG "Error: Function's Args Error\n"
-
-
-
+#define NO_B_ERR "Error: No Battlefield\n"
+#define NO_W_ERR "Error: No Such War Zone\n"
+#define NO_SQ_ERR "Error: No Such Squad\n"
+#define NO_A_ERR "Error: No Such APC\n"
+#define NO_S_ERR "Error: No Such Soldier\n"
 typedef enum Result_ { FAILURE, SUCCESS } Result;
 
 
