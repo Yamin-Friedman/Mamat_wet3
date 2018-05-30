@@ -309,20 +309,18 @@ Result Squad_Delete_APC(PSquad psquad, char *APC_id){
 
 //**************************************************************************************************************************************
 //* Function name: Squad_Get_Id
-//* Function description: copies into id the id of the squad.
+//* Function description: returns a pointer to the id of the squad.
 //* Parameters: psquad - a pointer to a squad.
-//* Parameters: id - a pointer to a string.
-//* Return value: void.
+//* Return value: A pointer to a string with the squad ID.
 //**************************************************************************************************************************************
-void Squad_Get_ID(PSquad psquad,char *id){
+char *Squad_Get_ID(PSquad psquad){
 
 	if(psquad == NULL){
 		printf(ARG_ERR_MSG);
-		return;
+		return NULL;
 	}
 
-	strcpy(id,psquad->ID);
-
+	return  psquad->ID;
 }
 
 //**************************************************************************************************************************************
@@ -505,7 +503,7 @@ PKey Soldier_Get_Key(PElem pelem) {
 		return NULL;
 	}
 
-	Soldier_Get_Id((PSoldier)pelem, key);
+	key = Soldier_Get_Id((PSoldier)pelem);
 
 	return key;
 }
@@ -578,7 +576,6 @@ void APC_Print_Func(PElem pelem) {
 //* Parameters: pelem - a pointer to a list element.
 //* Return value: A pointer to a list key.
 //**************************************************************************************************************************************
-
 PKey APC_Get_Key(PElem pelem) {
 	PKey key = NULL;
 
@@ -587,7 +584,7 @@ PKey APC_Get_Key(PElem pelem) {
 		return NULL;
 	}
 
-	APC_Get_Id((PAPC)pelem, key);
+	key = APC_Get_Id((PAPC)pelem);
 
 	return key;
 }

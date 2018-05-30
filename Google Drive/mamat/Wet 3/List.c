@@ -121,7 +121,7 @@ Result List_Add_Elem(PList plist, PElem pelem) {
 	return FAILURE;
 }
 
-Result List_Remove_Elem(PList plist, PKey pkey){
+Result List_Remove_Elem(PList plist, PKey pkey){//there's a problem with warzone_move_squad
     PNode curr_node = NULL;
     PNode prev_node = NULL;
 
@@ -156,6 +156,8 @@ PElem List_Get_First(PList plist) {
 		return NULL;
 	}
 	plist->curr_node = plist->first_node;
+	if(plist->first_node == NULL)//Fixed segmentation fault
+		return NULL;
 	return plist->first_node->pelem;
 }
 
@@ -171,6 +173,8 @@ PElem List_Get_Next(PList plist){
     } else{
         return NULL;
     }
+	if(plist->curr_node == NULL)///Fixed segmentation fault
+		return NULL;
     return  plist->curr_node->pelem;
 }
 

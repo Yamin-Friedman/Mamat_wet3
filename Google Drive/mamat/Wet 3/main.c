@@ -110,8 +110,8 @@ PKey Command_Get_Key(PElem pelem) {
 }
 
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCDFAInspection"
+//#pragma clang diagnostic push
+//#pragma ide diagnostic ignored "OCDFAInspection"
 // :)!!
 //Don't Worry, Be Happy :)
 int main() {
@@ -150,7 +150,7 @@ int main() {
 
 	while (!ended) {												//program didnt end
 		//initializing Curr_Command
-
+		setbuf(stdout, 0); // this is temporary
 		Args_Num = 0;
 		fgets(Input_Line, MAX_INPUT_LINE, stdin);					//scan next input line
 		if (Input_Line == NULL)
@@ -186,11 +186,11 @@ int main() {
 		//C.2) index is "Exit"
 				List_Delete(Commands_List);
 				Command_Delete(Tmp_Command);
-				if (Battlefield_Created = false) {
-					return 0;
-				}
 				for (int i = 0; i < MAX_ARG; i++) {
 					free(Command_Arguments[i]);
+				}
+				if (Battlefield_Created == false) {
+					return 0;
 				}
 				Battlefield_Delete(pbattlefield);
 				return 0;
@@ -201,6 +201,10 @@ int main() {
 			char c[10];
 			itoa(i,c,10);
 			PCommand Curr_Command = List_Get_Elem(Commands_List, &c);
+			if(Curr_Command == NULL){
+				printf("No Commands to Execute\n");
+				continue;
+			}
 			while (Curr_Command)
 			{
 				//command execution
@@ -216,7 +220,7 @@ int main() {
 					Battlefield_Delete_WarZone(pbattlefield, Curr_Command->command_args[0]);
 				}
 				else if (strcmp(Curr_Command->command, "R_W") == 0) {
-					Battlefield_Warzone_Raise_Alert(Curr_Command->command_args[0], pbattlefield);
+					Battlefield_Warzone_Raise_Alert(Curr_Command->command_args[0], pbattlefield);//problem with "Emergency Situation": the squads are being duplicated instead of being moved.
 				}
 				else if (strcmp(Curr_Command->command, "Add_Sq") == 0) {
 					Battlefield_Add_Squad(pbattlefield, Curr_Command->command_args[0], Curr_Command->command_args[1]);
@@ -262,8 +266,9 @@ int main() {
 				List_Remove_Elem(Commands_List, &c);
 				i++;
 				itoa(i,c,10);
-				Curr_Command = List_Get_Elem(Commands_List, &c);//need to check if index is initialized after exe
+				Curr_Command = List_Get_Elem(Commands_List, &c);
 			}
+			printf("**********All Commands Executed**********\n");
 		}
 	}
 	//Memory Clearance
@@ -279,7 +284,7 @@ int main() {
 	return 0;
 
 }
-#pragma clang diagnostic pop
+//#pragma clang diagnostic pop
 
 // :)
 

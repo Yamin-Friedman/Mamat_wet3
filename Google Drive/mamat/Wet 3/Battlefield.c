@@ -45,7 +45,7 @@ static Result move_squad_list(PWarZone S_warzone, PWarZone D_warzone, PBattlefie
 
 	squad_list = WarZone_Get_List(S_warzone);
 	curr_squad = List_Get_First(squad_list);
-	while (curr_squad)
+	while (curr_squad != NULL)
 	{
 		res = WarZone_Move_Squad(S_warzone, D_warzone, curr_squad);
 		if (res == FAILURE) {
@@ -64,7 +64,7 @@ static Result Battlefield_Remove_Soldier(PBattlefield battlefield,PSoldier soldi
 	}
 
 
-	Soldier_Get_Id(soldier,id);
+	id = Soldier_Get_Id(soldier);
 	List_Remove_Elem(battlefield->Soldiers,id);
 
 	return SUCCESS;
@@ -80,12 +80,12 @@ static Result Battlefield_Remove_APC(PBattlefield battlefield,PAPC pAPC){
 
 	psoldier = APC_Pop(pAPC);
 	while (psoldier){
-		Soldier_Get_Id(psoldier,id);
+		id = Soldier_Get_Id(psoldier);
 		List_Remove_Elem(battlefield->Soldiers,id);
 		Soldier_Delete(psoldier);
 		psoldier = APC_Pop(pAPC);
 	}
-	APC_Get_Id(pAPC,id);
+	id = APC_Get_Id(pAPC);
 	List_Remove_Elem(battlefield->APCs,id);
 
 	return SUCCESS;
@@ -110,6 +110,9 @@ static Result Battlefield_Remove_Squad(PBattlefield battlefield,PSquad pSquad){
 		Battlefield_Remove_Soldier(battlefield,psoldier);
 		psoldier = Squad_Get_Next_Soldier(pSquad);
 	}
+
+	id = Squad_Get_ID(pSquad);
+	List_Remove_Elem(battlefield->Squads,id);
 
 	return SUCCESS;
 }
@@ -139,7 +142,6 @@ PBattlefield Battlefield_Create() {
 void Battlefield_Delete(PBattlefield battlefield){
 
 	if(battlefield == NULL){
-		printf(NO_B_ERR);
 		return;
 	}
 
@@ -148,8 +150,6 @@ void Battlefield_Delete(PBattlefield battlefield){
 	List_Delete(battlefield->Squads);
 	List_Delete(battlefield->Warzones);
 	free(battlefield);
-
-	return;
 }
 
 void Battlefield_Print(PBattlefield battlefield) {
@@ -281,9 +281,6 @@ Result Battlefield_Add_Squad(PBattlefield battlefield, char *warzone_id, char *s
 Result Battlefield_Delete_Squad(PBattlefield battlefield, char *warzone_id, char *squad_id){
 	PWarZone warZone = NULL;
 	PSquad psquad = NULL;
-	PAPC pAPC = NULL;
-	PSoldier psoldier = NULL;
-	char *id = NULL;
 	Result res;
 
 	if (battlefield == NULL) {
@@ -382,9 +379,7 @@ Result Battlefield_Add_APC(PBattlefield battlefield, char *warzone_id, char *squ
 Result Battlefield_Delete_APC(PBattlefield battlefield, char *warzone_id, char *squad_id, char *APC_id){
 	PSquad squad = NULL;
 	PAPC pAPC = NULL;
-	PSoldier psoldier = NULL;
 	PWarZone warZone = NULL;
-	char *id = NULL;
 	Result res;
 
 	if (battlefield == NULL) {
@@ -445,15 +440,15 @@ Result Battlefield_Add_Soldier(PBattlefield battlefield, char *warzone_id, char 
 		return FAILURE;
 	}
 	if (warzone_id == NULL) {
-		printf(NO_W_ERR);
+		printf(ARG_ERR_MSG);
 		return FAILURE;
 	}
 	if (squad_id == NULL) {
-		printf(NO_SQ_ERR);
+		printf(ARG_ERR_MSG);;
 		return FAILURE;
 	}
 	if (soldier_id == NULL) {
-		printf(NO_S_ERR);
+		printf(ARG_ERR_MSG);
 		return FAILURE;
 	}
 
@@ -617,7 +612,7 @@ void Battlefield_Warzone_Raise_Alert(char *W_id, PBattlefield battlefield) {
 	alert_level = WarZone_Raise_Alert(warzone);
 	if (alert_level == 0) {
 		curr_warzone = List_Get_First(battlefield->Warzones);
-		while (curr_warzone)
+		while (curr_warzone != NULL)
 		{
 			if (curr_warzone != warzone) {
 				res = move_squad_list(curr_warzone, warzone, battlefield);
@@ -725,7 +720,7 @@ PKey WarZone_Get_Key(PElem pelem) {
 		return NULL;
 	}
 
-	WarZone_Get_ID((PWarZone)pelem, key);
+	key = WarZone_Get_ID((PWarZone)pelem);
 
 	return key;
 }

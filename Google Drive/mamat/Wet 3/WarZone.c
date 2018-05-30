@@ -101,9 +101,9 @@ int WarZone_Raise_Alert(PWarZone pWarZone){
 	return pWarZone->Alert_Level;
 }
 
-Result WarZone_Move_Squad(PWarZone S_warzone,PWarZone D_warzone,PSquad psquad){
+Result WarZone_Move_Squad(PWarZone S_warzone,PWarZone D_warzone,PSquad psquad){ // this function duplicates the squad instead of moving it
 	Result res;
-
+	char* squad_id;
 	if(S_warzone == NULL || D_warzone == NULL || psquad == NULL){
 		printf(ARG_ERR_MSG);
 		return FAILURE;
@@ -113,7 +113,8 @@ Result WarZone_Move_Squad(PWarZone S_warzone,PWarZone D_warzone,PSquad psquad){
 	if(res == FAILURE){
 		return FAILURE;
 	}
-	res = List_Remove_Elem(S_warzone->Squads,psquad);
+	squad_id = Squad_Get_ID(psquad);
+	res = List_Remove_Elem(S_warzone->Squads,squad_id);
 	if(res == FAILURE){
 		return  FAILURE;
 	}
@@ -122,14 +123,14 @@ Result WarZone_Move_Squad(PWarZone S_warzone,PWarZone D_warzone,PSquad psquad){
 
 }
 
-void WarZone_Get_ID(PWarZone pwarzone, char* id){
+char *WarZone_Get_ID(PWarZone pwarzone){
 
 	if(pwarzone == NULL){
 		printf(ARG_ERR_MSG);
-		return;
+		return NULL;
 	}
 
-	strcpy(id,pwarzone->ID);
+	return  pwarzone->ID;
 }
 
 PSquad WarZone_Get_First_Squad(PWarZone warZone){
@@ -218,7 +219,7 @@ PKey Squad_Get_Key_Func(PElem pelem) {
 		return NULL;
 	}
 
-	Squad_Get_ID((PSquad)pelem, key);
+	key = Squad_Get_ID((PSquad)pelem);
 
 	return key;
 }

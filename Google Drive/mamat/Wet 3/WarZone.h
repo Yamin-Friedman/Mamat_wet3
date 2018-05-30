@@ -20,7 +20,7 @@ void WarZone_Print(PWarZone);
 PWarZone WarZone_Duplicate(PWarZone);
 int WarZone_Raise_Alert(PWarZone);
 Result WarZone_Move_Squad(PWarZone,PWarZone,PSquad);
-void WarZone_Get_ID(PWarZone, char*);
+char *WarZone_Get_ID(PWarZone);
 PList WarZone_Get_List(PWarZone);
 PSquad WarZone_Get_First_Squad(PWarZone);
 PSquad WarZone_Get_Next_Squad(PWarZone);

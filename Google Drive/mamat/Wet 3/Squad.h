@@ -91,12 +91,11 @@ Result Squad_Delete_Soldier(PSquad, char*);
 Result Squad_Delete_APC(PSquad, char*);
 //**************************************************************************************************************************************
 //* Function name: Squad_Get_Id
-//* Function description: copies into id the id of the squad.
+//* Function description: returns a pointer to the id of the squad.
 //* Parameters: psquad - a pointer to a squad.
-//* Parameters: id - a pointer to a string.
-//* Return value: void.
+//* Return value: A pointer to a string with the squad ID.
 //**************************************************************************************************************************************
-void Squad_Get_ID(PSquad,char*);
+char *Squad_Get_ID(PSquad);
 //**************************************************************************************************************************************
 //* Function name: Squad_Get_APC
 //* Function description: Returns a pointer to an APC based on id if the APC is in the squad.
